@@ -136,7 +136,7 @@ export function FaucetButton({
   // loading state
   if (faucetWalletBalanceQuery.isPending || canClaimFaucetQuery.isPending) {
     return (
-      <Button variant="outline" className="w-full gap-2">
+      <Button variant="outline" className="w-full gap-4">
         Checking Faucet <Spinner className="size-3" />
       </Button>
     );
@@ -192,7 +192,7 @@ export function FaucetButton({
     <div className="flex w-full flex-col text-center">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(claimFunds)}>
-          <Button variant="primary" className="w-full gap-2" type="submit">
+          <Button variant="primary" className="w-full gap-4" type="submit">
             {claimMutation.isPending ? (
               <>
                 Claiming <Spinner className="size-3" />
@@ -208,6 +208,7 @@ export function FaucetButton({
               <FormItem>
                 <FormControl>
                   <Turnstile
+                    className="mt-2"
                     siteKey={TURNSTILE_SITE_KEY}
                     onSuccess={(token) => field.onChange(token)}
                   />
