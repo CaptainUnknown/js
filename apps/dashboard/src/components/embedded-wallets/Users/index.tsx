@@ -10,6 +10,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useEmbeddedWallets } from "@3rdweb-sdk/react/hooks/useEmbeddedWallets";
+import { Spinner } from "@chakra-ui/react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { TWTable } from "components/shared/TWTable";
 import { format } from "date-fns/format";
@@ -17,7 +18,6 @@ import Papa from "papaparse";
 import { useCallback, useState } from "react";
 import type { WalletUser } from "thirdweb/wallets";
 
-const ACTIVE_THRESHOLD_DAYS = 30;
 const getUserIdentifier = (accounts: WalletUser["linkedAccounts"]) => {
   const mainDetail = accounts[0]?.details;
   return (
@@ -144,16 +144,20 @@ export const InAppWalletUsersPageContent = (props: {
             Download as .csv
           </Button>
 
-          {/* <div className="flex items-center justify-end gap-2">
-            <p className="text-muted-foreground text-sm">
-              Active last {ACTIVE_THRESHOLD_DAYS} days
-            </p>
-            <Switch checked={true} disabled={wallets.length === 0} />
-          </div> */}
+          <div className="flex items-center justify-end gap-2">
+            {walletsQuery.isPlaceholderData && (
+              <>
+                <Spinner className="size-4" />
+                <p className="text-muted-foreground text-sm">
+                  Loading page {activePage} of {totalPages}
+                </p>
+              </>
+            )}
+          </div>
         </div>
 
         <TWTable
-          title="active in-app wallets"
+          title="in-app wallets"
           data={wallets}
           columns={columns}
           isPending={walletsQuery.isPending}

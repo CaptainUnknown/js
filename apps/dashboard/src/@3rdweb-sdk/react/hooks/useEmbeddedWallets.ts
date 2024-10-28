@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { THIRDWEB_EWS_API_HOST } from "constants/urls";
 import type { WalletUser } from "thirdweb/wallets";
 import { embeddedWalletsKeys } from "../cache-keys";
@@ -17,8 +17,7 @@ export function useEmbeddedWallets(clientId: string, page: number) {
       const url = new URL(
         `${THIRDWEB_EWS_API_HOST}/api/2024-05-05/account/list`,
       );
-      // TODO: replace this with the real thing
-      url.searchParams.append("clientId", "5574e050c33e91d4526218dc7c7d2af0");
+      url.searchParams.append("clientId", clientId);
       url.searchParams.append("page", page.toString());
 
       const res = await fetch(url.href, {
@@ -33,12 +32,12 @@ export function useEmbeddedWallets(clientId: string, page: number) {
       }
 
       const json = await res.json();
-
       return json as {
         users: WalletUser[];
         totalPages: number;
       };
     },
+    placeholderData: keepPreviousData,
     enabled: !!user?.address && isLoggedIn && !!clientId,
   });
 }
