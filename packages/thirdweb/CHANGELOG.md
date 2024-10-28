@@ -1,5 +1,11 @@
 # thirdweb
 
+## 5.64.3
+
+### Patch Changes
+
+- [#5176](https://github.com/thirdweb-dev/js/pull/5176) [`84571ef`](https://github.com/thirdweb-dev/js/commit/84571efaf80bc7b9054a375233beb8789326255d) Thanks [@joaquim-verges](https://github.com/joaquim-verges)! - Redesigned Pay payment selection flow
+
 ## 5.64.2
 
 ### Patch Changes
